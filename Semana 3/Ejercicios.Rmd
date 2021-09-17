@@ -1,0 +1,117 @@
+---
+title: "Ejercicios_Guia"
+author: "Agustin Huczok"
+date: "17/9/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Ejercicio 1----
+##A----
+
+```{r}
+
+A=matrix(c(4,-1,1,
+           2,5,2,
+           2,5,2),nrow=3,ncol=3,byrow=T)
+LU(matriz_coeficientes = A)
+L <- LU(A)$L
+U <- LU(A)$U
+L%*%U
+
+```
+
+##B----
+
+```{r}
+A=matrix(c(4,1,2,
+           2,4,-1,
+        1,1,-3),nrow=3,ncol=3,byrow=T)
+LU(matriz_coeficientes = A)
+L <- LU(A)$L
+U <- LU(A)$U
+
+```
+
+##C----
+```{r}
+##C----
+A=matrix(c(2,-1,1,
+           3,3,9,
+           3,3,5),ncol=3,nrow=3,byrow=T)
+LU(matriz_coeficientes = A)
+L <- LU(A)$L
+U <- LU(A)$U
+```
+
+##D----
+
+```{r}
+A=matrix(c(2,0,0,0,
+           1,1.5,0,0,
+           0,-3,0.5,0,
+           2,-2,1,1),ncol=4,nrow=4,byrow=T)
+LU(matriz_coeficientes = A)
+L <- LU(A)$L
+U <- LU(A)$U
+```
+
+##E----
+```{r}
+A=matrix(c(1.012,-2.132,3.104,
+           -2.132,4.906,-7.013,
+           3.104,-7.013,0.014),ncol=3,nrow=3,byrow=TRUE)
+LU(matriz_coeficientes = A)
+L <- LU(A)$L
+U <- LU(A)$U
+```
+
+#Ejercicio 2----
+##A----
+
+```{r}
+A <- matrix(c(2, -1, 0,
+              -1, 2, -1,
+              0, -1, 2), nrow = 3, ncol = 3, byrow = TRUE)
+test <- Cholesky(A)
+print(test)
+print(test%*%t(test))
+```
+
+##B----
+
+```{r}
+A <- matrix(c(6,2,1,-1,
+              2,4,1,0,
+              1,1,4,-1,
+              -1,0,-1,3), nrow = 4, ncol = 4, byrow = TRUE)
+test <- Cholesky(A)
+print(test)
+print(test%*%t(test))
+```
+
+##C----
+
+```{r}
+A <- matrix(c(4,1,1,1,
+              1,3,-1,1,
+              1,-1,2,0,
+              1,1,0,2), nrow = 4, ncol = 4, byrow = TRUE)
+test <- Cholesky(A)
+print(test)
+print(test%*%t(test))
+```
+
+#D----
+```{r}
+A <- matrix(c(1,2,4,7,
+              2,13,23,38,
+              4,23,77,122,
+              7,38,122,294), nrow = 4, ncol = 4, byrow = TRUE)
+test <- Cholesky(A)
+print(test)
+print(test%*%t(test))
+```
+
