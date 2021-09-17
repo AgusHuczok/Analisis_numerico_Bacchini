@@ -1,0 +1,440 @@
+---
+title: "Ejercicios_secante"
+author: "Agustin Huczok"
+date: "7/9/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+graphics.off()
+rm(list=ls())
+source("C:/Users/Dell3000/Documents/Busqueda_raiz.R")
+```
+
+#Ejercicio 1
+Hallar la raiz para la funcion $e^x+2^(-x)+2cos(x)-6=0$ en $[1;2]$
+
+
+```{r}
+f=function(x){
+  exp(x)+2^(-x)+2*cos(x)-6
+}
+
+
+```
+
+Grafico
+
+```{r}
+x<-seq(-1,3,0.1)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(-1,4,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-5,15,1)) #Cambio escala eje Y
+
+
+ggfx
+  
+```
+
+Aplico el metodo de la secante
+
+```{r}
+paste("La raiz se encuentra en: ",metodo_secante(f,1.5,3,0.0001,100))
+
+```
+
+#Ejercicio 2
+Hallar la raiz para la funcion $log(x-1)+cos(x-1)=0$ en $[1.3;2]$
+
+
+```{r}
+f=function(x){
+  log(x-1)+cos(x-1)
+}
+
+
+```
+
+Grafico
+
+```{r}
+x<-seq(1.01,2.8,0.1)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(1,3,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-2,2,0.5)) #Cambio escala eje Y
+
+
+ggfx
+
+```
+Aplico el metodo de la secante
+
+```{r}
+paste("La raiz se encuentra en: ",metodo_secante(f,1.4,1.9,0.0001,100))
+
+```
+
+#Ejercicio 3
+
+
+```{r}
+f=function(x){
+  2*x*cos(2*x)-(x-2)^2
+}
+
+
+
+```
+
+Grafico en el intervalo $[2;3]$ y $[3;4]$
+
+```{r}
+x<-seq(0,4.1,0.01)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,4,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-4,6,1)) #Cambio escala eje Y
+
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en ambos intervalos
+
+```{r}
+paste("Las raices se encuentran en: ",metodo_secante(f,2.25,2.5,0.0001,100)
+      , ", y en :",metodo_secante(f,3.5,3.75,0.0001,100))
+
+```
+
+#Ejercicio 4
+
+```{r}
+f=function(x){
+  (x-2)^2-log(x)
+}
+
+
+```
+
+Grafico en el intervalo $[1;2]$ y $[e;4]$
+
+```{r}
+x<-seq(0,4,0.01)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,5,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-1,10,1)) #Cambio escala eje Y
+
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en ambos intervalos
+
+```{r}
+paste("Las raices se encuentran en: ",metodo_secante(f,1.25,1.5,0.0001,100)
+      , ", y en :",metodo_secante(f,3,3.25,0.0001,100))
+
+```
+
+#Ejercicio 5
+
+```{r}
+f=function(x){
+  exp(x)-3*x^2
+}
+
+
+
+```
+
+Grafico en el intervalo $[0;1]$ y $[3;5]$
+
+```{r}
+x<-seq(0,4,0.001)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,5,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-8,8,1)) #Cambio escala eje Y
+
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en ambos intervalos
+
+```{r}
+paste("Las raices se encuentran en: ",metodo_secante(f,0.75,1,0.0001,100)
+      , ", y en :",metodo_secante(f,3.5,4,0.0001,100))
+
+```
+
+
+#Ejercicio 6
+
+
+```{r}
+f=function(x){
+  sin(x)-exp(-x)
+}
+
+
+
+```
+
+Grafico en el intervalo $[0;1]$ , $[3;4]$ y $[6;7]$
+
+```{r}
+x<-seq(0,8,0.001)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,10,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-2,2,0.5)) #Cambio escala eje Y
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en todos intervalos
+
+```{r}
+paste("Las raices se encuentran en: ",metodo_secante(f,0.5,0.75,0.0001,100),", en :", metodo_secante(f,3,3.25,0.0001,100)
+      , ", y en :",metodo_secante(f,6.25,6.5,0.0001,100))
+
+```
+
+#Ejercicio 7
+
+
+```{r}
+f=function(x){
+  cos(x)-sqrt(x)
+}
+
+
+
+```
+
+Grafico en el intervalo $[0;2]$ 
+
+```{r}
+x<-seq(0,2,0.001)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,3,0.1)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-3,2,0.5)) #Cambio escala eje Y
+
+
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en el intervalo
+
+```{r}
+paste("La raiz se encuentra en: ",metodo_secante(f,0.6,0.7,0.0001,100))
+
+```
+
+#Ejercicio 8
+
+
+```{r}
+f=function(x){
+  2+cos(exp(x)-2)-exp(x)
+}
+
+
+
+```
+
+Grafico en el intervalo $[0;1.5]$ 
+
+```{r}
+x<-seq(0,1.5,0.001)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,2,0.1)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-4,2,0.5)) #Cambio escala eje Y
+
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en el intervalo
+
+```{r}
+paste("La raiz se encuentra en: ",metodo_secante(f,0.9,1.1,0.0001,100))
+
+```
+
+
+#Ejercicio 9
+
+
+```{r}
+f=function(x){
+  x^3-7*x^2+14*x-6
+}
+
+
+
+```
+
+Grafico en el intervalo $[0;4]$ 
+
+```{r}
+x<-seq(0,4,0.001)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,5,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-5,5,1)) #Cambio escala eje Y
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en el intervalo
+
+```{r}
+paste("Las raices se encuentran en: ",metodo_secante(f,0.5,0.75,0.0001,100),", en :", metodo_secante(f,2.75,3.25,0.0001,100)
+      , ", y en :",metodo_secante(f,3.25,3.5,0.0001,100))
+```
+
+
+#Ejercicio 10
+
+
+```{r}
+f=function(x){
+  cos(x)-x
+}
+
+```
+
+Grafico en el intervalo $[-2;2]$ 
+
+```{r}
+x<-seq(-2,2,0.001)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(-3,3,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-3,2,1)) #Cambio escala eje Y
+
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en el intervalo
+
+```{r}
+paste("Las raices se encuentran en: ",metodo_secante(f,0.5,1,0.0001,100))
+```
+
+#Ejercicio 11
+
+
+```{r}
+f=function(x){
+  -x^3-cos(x)
+}
+
+```
+
+Grafico en el intervalo $[-1;1]$ 
+
+```{r}
+x<-seq(-1,1,0.001)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(-1,1,0.1)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-2,2,0.1)) #Cambio escala eje Y
+
+
+ggfx
+
+```
+Aplico el metodo de la secante en el intervalo
+
+```{r}
+paste("Las raices se encuentran en: ",metodo_secante(f,-0.9,-0.8,0.0001,100))
+      
+```

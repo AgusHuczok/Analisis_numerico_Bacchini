@@ -1,0 +1,159 @@
+---
+title: "Entrega ejercicios semana 2"
+author: "Agustin Huczok"
+date: "6/9/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+source("C:/Users/Dell3000/Documents/Busqueda_raiz.R")
+```
+
+#Metodo de Biseccion
+
+##Ejercicio 1
+
+Hallar la solucion de: $cos(x)=\sqrt(x)$
+Defino la funcion como $f(x)=0$: $cos(x)-\sqrt(x)=0$
+Grafico la funcion para observar el intervalo donde se encuentra la raiz
+
+```{r}
+f <- function(x) {
+  f = cos(x)- x^(0.5)
+  
+}
+
+x<-seq(0,10,0.1)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(1,10,1)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-4.5,1,0.5)) #Cambio escala eje Y
+ggfx=ggfx+ggtitle("Funcion con raiz entre 0.5 y 1") #Agrego titulo
+
+#Ahora se que la raiz esta entre 0.5 y 1. Grafico puntos en ese area
+ggfx=ggfx+geom_vline(xintercept=c(0.5,1),linetype=2,colour="red")
+
+
+ggfx
+```
+
+Aplico metodo de biseccion
+
+```{r}
+raiz_biseccion(f,0.5,1,0.0001,100)
+
+```
+La ecuacion $cos(x)=\sqrt(x)$ tiene raiz en 0.6416626
+
+##Ejercicio 2
+
+Hallar la solucion de: $x^3 + 4x^2 -10=0$
+
+Grafico la funcion para observar el intervalo donde se encuentra la raiz
+
+```{r}
+f=function(x){
+  f=x^3+4*x^2-10
+}
+
+x<-seq(-5,5,0.1)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(-5,5,1)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-4,1,0.5)) #Cambio escala eje Y
+ggfx=ggfx+ggtitle("Funcion con raiz entre 1 y 2") #Agrego titulo
+
+#Ahora se que la raiz esta entre 1 y 2. Grafico puntos en ese area
+ggfx=ggfx+geom_vline(xintercept=c(1,2),linetype=2,colour="red")
+
+
+ggfx
+```
+Aplico metodo de biseccion
+
+```{r}
+raiz_biseccion(f,1,2,0.0001,100)
+```
+La funcion $x^3 + 4x^2 -10=0$ tiene raiz en 1.365173
+
+##Ejercicio 3
+Hallar la solucion de: $2+cos(e^x-2)-e^x=0$
+
+Grafico la funcion para observar el intervalo donde se encuentra la raiz
+
+```{r}
+f=function(x){
+  f=2+cos(exp(x)-2)-exp(x)
+}
+
+x<-seq(-1,2,0.1)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(-10,10,1)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-10,10,1)) #Cambio escala eje Y
+ggfx=ggfx+ggtitle("Funcion con raiz entre 0.5 y 2") #Agrego titulo
+
+#Ahora se que la raiz esta entre 0.5 y 2. Grafico puntos en ese area
+ggfx=ggfx+geom_vline(xintercept=c(0.5,2),linetype=2,colour="red")
+
+
+ggfx
+```
+Aplico metodo de biseccion
+
+```{r}
+round(raiz_biseccion(f,0.5,2,0.0001,100),8)
+```
+La ecuacion $2+cos(e^x-2)-e^x=0$ tiene raiz en  1.00766
+
+##Ejercicio 4
+
+Hallar la solucion de: $x^3-7x^2+14x-6=0$
+
+Grafico la funcion para observar el intervalo donde se encuentra la raiz
+
+```{r}
+f=function(x){
+  f=x^3-7*x^2+14*x-6
+}
+
+x<-seq(0,5,0.1)#Genero vector para graficar f(x)
+fx<-f(x)
+df<-data.frame(x,fx) #Creo dataframe
+ggfx=ggplot(data=df) #cargo los datos
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,10,0.5)) #cambio escala eje X
+ggfx=ggfx+scale_y_continuous(name="y=f(x)",breaks=seq(-8,15,1)) #Cambio escala eje Y
+ggfx=ggfx+ggtitle("Funcion con tres raices") #Agrego titulo
+
+#Ahora se que una raiz esta entre 0.5 y 1 , otra entre 2.5 y 3.2 y otra entre 3.2 y 4. Grafico puntos en ese area
+ggfx=ggfx+geom_vline(xintercept=c(0.5,1,2.5,3.2,4),linetype=2,colour="red")
+
+
+ggfx
+```
+Aplico metodo de biseccion
+
+```{r}
+raiz_biseccion(f,0.5,1,0.0001,100)
+raiz_biseccion(f,2.5,3.2,0.0001,100)
+raiz_biseccion(f,3.2,4,0.0001,100)
+```
+Las raices de la ecuacion $x^3-7x^2+14x-6=0$ se encuentran en 0.5857544, 2.999963 y en 3.41416
