@@ -1,0 +1,64 @@
+---
+title: "Ejercicios SQL"
+author: "Agustin Huczok"
+date: "20/9/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#PPT
+##1
+Todas las ordenes de compra con los datos de los empleados, clientes y proovedores:
+
+SELECT o.* , c.CustomerName, s.ShipperName 
+FROM orders o
+INNER JOIN Customers c ON c.CustomerID=o.CustomerID 
+INNER JOIN Shippers s ON s.ShipperID=o.ShipperID
+
+##2
+La cantidad de ordenes de compra por nombre de cliente, si la cantidad es mayor a 3:
+
+SELECT c.CustomerName, o.CustomerID , COUNT (o.OrderID) as Compras
+FROM Customers c
+INNER JOIN Orders o ON o.CustomerID=c.CustomerID
+GROUP BY c.CustomerName 
+HAVING Compras>3
+ORDER BY Compras ASC
+
+##3 FALTA LA SUMA
+El detalle de los productos y categorias por orden de compra, y calcular el total en pesos por cada compra:
+
+SELECT o.OrderID, od.ProductID, p.Price, c.CategoryName, 
+FROM Orders o
+INNER JOIN OrderDetails od ON o.OrderID=od.OrderID
+INNER JOIN Products p ON p.ProductID=od.ProductID
+INNER JOIN Categories c ON c.CategoryID=p.CategoryID
+
+##4
+Los empleados que no estan asignados en ninguna orden de compra:
+
+
+
+#Guia
+##1
+Todas las ventas realizadas por MargaretPeacock al cliente Frankenversand.La salida debe  contener  los  siguientes  campos:  Nombre  y  Apellido  del  Vendedor,  Nombre  del Cliente,  ID  de  la  Orden  de  Compra  (tabla  Orders),  Nombre  del  Producto  (tabla Products), Presentación (Unit, de tabla Products), Cantidad (tabla OrderDetails), Precio (tabla Products) y Total (calculado como Precio*Cantidad):
+
+
+SELECT e.LastName as Apellido_Vendedor, e.FirstName as Nombre_Vendedor, c.CustomerName as Cliente ,o.OrderID, p.ProductName as Nombre_Producto, p.unit as Presentacion, od.Quantity as Cantidad, p.price as Precio, round(p.Price*od.Quantity,2) as Total
+FROM Orders o
+INNER JOIN OrderDetails od ON o.OrderID=od.OrderID
+INNER JOIN Customers c ON c.CustomerID=o.CustomerID
+INNER JOIN Products p ON p.ProductID=od.ProductID
+INNER JOIN Employees e ON e.EmployeeID=o.EmployeeID
+WHERE Nombre_Vendedor="Margaret" AND Cliente="Frankenversand"
+
+##2
+Un  descuento  de  12%  para  aquellos productos  con  precio  mayor  a  75,  un  descuento del 8%  para  productos  con  precio  entre  50  y  75  (inclusive),  y 4%  para  productos  con precio mayor o igual a 30 y hasta 49.99.La salida debe contener los siguientes campos: Nombre   del   Producto,   Presentación   (Unidades),   Precio   Original,   Descuento   (%), Descuento ($) y Precio con Descuento:
+
+
+SELECT ProductName as Nombre_Producto, Unit as Presentacion, Price as Precio_Original, CASE WHEN price>75 THEN "12%" WHEN (price>=50 AND price<=75) THEN "8%" WHEN (price>30 AND price<50) THEN "4%" ELSE "0%" END as "Descuento %" , round(price*(CASE WHEN price>75 THEN 0.12 WHEN (price>=50 AND price<=75) THEN 0.08 WHEN (price>30 AND price<50) THEN 0.04 ELSE 0 END),2) as "Descuento $" , round(price*(CASE WHEN price>75 THEN 0.88 WHEN (price>=50 AND price<=75) THEN 0.92 WHEN (price>30 AND price<50) THEN 0.96 ELSE 1 END),2) as Precio_final
+FROM Products
+ORDER BY "Descuento %" DESC
