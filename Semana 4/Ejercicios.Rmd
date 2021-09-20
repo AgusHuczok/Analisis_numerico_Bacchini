@@ -62,3 +62,27 @@ Un  descuento  de  12%  para  aquellos productos  con  precio  mayor  a  75,  un
 SELECT ProductName as Nombre_Producto, Unit as Presentacion, Price as Precio_Original, CASE WHEN price>75 THEN "12%" WHEN (price>=50 AND price<=75) THEN "8%" WHEN (price>30 AND price<50) THEN "4%" ELSE "0%" END as "Descuento %" , round(price*(CASE WHEN price>75 THEN 0.12 WHEN (price>=50 AND price<=75) THEN 0.08 WHEN (price>30 AND price<50) THEN 0.04 ELSE 0 END),2) as "Descuento $" , round(price*(CASE WHEN price>75 THEN 0.88 WHEN (price>=50 AND price<=75) THEN 0.92 WHEN (price>30 AND price<50) THEN 0.96 ELSE 1 END),2) as Precio_final
 FROM Products
 ORDER BY "Descuento %" DESC
+
+
+##3
+El  precio  máximo  y  mínimo  por  cada  categoría  de  los  productos.  La  salida  debe contener  los  siguientes  campos:  Nombre  de  la  categoría,  Precio Máximo,  Precio Mínimo y debe ser ordenado por el precio máximo de forma descendente:
+
+SELECT c.CategoryName , MIN(p.Price) as Minimo, MAX(p.Price) as Maximo
+FROM categories c
+INNER JOIN products p ON p.categoryID=c.CategoryID
+GROUP BY CategoryName
+ORDER BY Maximo DESC
+
+
+##4
+
+Todas  las  ventas  realizadas  a  los  clientes  de España.La  salida  debe  contener  los siguientes  campos:  Nombre  del  Cliente, ciudad  y  país  del  cliente, ID  de  la  Orden  de Compra  (tabla  Orders),  Nombre  del  Producto  (tabla  Products),  Presentación  (Unit,  de tabla   Products),   Cantidad   (tabla   OrderDetails),   Precio   (tabla   Products)   y   Total (calculado como Precio*Cantidad):
+
+SELECT c.CustomerName as Nombre_Cliente, c.City as Ciudad, c.Country as Pais, o.OrderID, p.ProductName as Producto, p.Unit as Presentacion, od.Quantity as Cantidad, p.price as Precio, round(price*quantity,2) as Total
+From Customers c
+INNER JOIN Orders o ON o.CustomerID=c.CustomerID
+INNER JOIN OrderDetails od ON od.OrderID=o.OrderID
+INNER JOIN Products p ON p.ProductID=od.ProductID
+WHERE c.Country="Spain"
+
+##5
