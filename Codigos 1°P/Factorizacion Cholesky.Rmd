@@ -1,0 +1,67 @@
+---
+title: "Factorizacion de Cholesky"
+author: "Agustin Huczok"
+date: "17/9/2021"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r factorizacion de matrices con el metodo de Cholesky}
+Cholesky <- function(A){
+  n <- nrow(A)
+  
+  L <- matrix(rep(0, times = n^2), nrow = n, ncol = n, byrow = TRUE)
+  
+  # Paso 1 -----------
+  L[1,1] <- sqrt(A[1,1])
+  
+  # Paso 2 -----------
+  for (j in 2:n){
+    L[j,1] <- A[j,1]/L[1,1]
+  }
+  
+  # Paso 3 -----------
+  for (i in 2:(n-1)) {
+    # Paso 4 ---------
+    suma <- 0
+    for (k in 1:(i-1)) {
+      suma <- suma + L[i,k]^2
+    }
+    
+    L[i,i] <- sqrt(A[i,i] - suma)
+    
+    # Paso 5 --------
+    for (j in (i+1):n) {
+      
+      suma <- 0
+      for (k in 1:(i-1)) {
+        suma <- suma + L[j,k]*L[i,k]
+      }
+      
+      L[j,i] <- (A[j,i] - suma)/L[i,i] 
+      
+    }
+  }
+  
+  # Paso 6 ------
+  suma <- 0
+  for (k in 1:(n-1)) {
+    suma <- suma + L[n,k]^2
+  }
+  
+  L[n,n] <- sqrt(A[n,n]-suma)
+  
+  return(L)
+  
+}
+A <- matrix(c(2, -1, 0,
+              -1, 2, -1,
+              0, -1, 2), nrow = 3, ncol = 3, byrow = TRUE)
+test <- Cholesky(A)
+print(test)
+print(test%*%t(test))
+```

@@ -1,0 +1,87 @@
+---
+title: "Eliminacion Gaussiana"
+author: "Agustin Huczok"
+date: "17/9/2021"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+k
+Para resolver el sistma lineal de n x n
+```{r metodo de eliminacion gaussiana}
+Eliminacion_Gaussiana <- function(matriz_coeficientes, vector_resultados){
+  n_incoginitas <- nrow(vector_resultados)
+  matriz_ampliada <- cbind(matriz_coeficientes, vector_resultados)
+  
+  #Busco el numero mas chico de la fila
+  for (i in 1:(n_incoginitas-1)) {
+    
+    #Pongo p en cero
+    pp <- 0
+    
+    for (p in i:n_incoginitas) {
+      
+      if(matriz_ampliada[p,i] != 0){
+        pp <- p
+        break
+      }
+    }
+    
+    #Si no se cumple el bucle
+    if (pp == 0){
+      return("No existe una solución única")
+    }
+    
+    #Permuto filas
+    if(pp != i){
+      aux <- matriz_ampliada[pp,]
+      matriz_ampliada[pp,] <- matriz_ampliada[i,]
+      matriz_ampliada[i,] <- aux
+    }
+    
+    
+    
+    for (j in (i+1):n_incoginitas) {
+      m <- matriz_ampliada[j,i] / matriz_ampliada[i,i]
+      
+      matriz_ampliada[j,] <- matriz_ampliada[j,] - (m * matriz_ampliada[i,])
+    }
+    
+  }
+  
+  if (matriz_ampliada[n_incoginitas,n_incoginitas] == 0){
+    return("No existe una solucion unica")
+  }
+  
+  
+  
+  x <- rep(NA, times = n_incoginitas)
+  
+  
+  x[n_incoginitas] <- matriz_ampliada[n_incoginitas,(n_incoginitas+1)]/
+    matriz_ampliada[n_incoginitas,n_incoginitas]
+  
+  for (i in (n_incoginitas-1):1) {
+    
+    sumatoria <- 0
+    
+    for (j in (i+1):n_incoginitas) {
+      sumatoria <- sumatoria + matriz_ampliada[i,j] * x[j]
+    }
+    x[i] <- (matriz_ampliada[i,n_incoginitas+1] - sumatoria) / matriz_ampliada[i,i]
+  }
+  
+  return(x)
+  
+}
+#2) Defino Matrices ----
+MatrixA = matrix(c(1,-1,2,-1,
+                   2,-2,3,-3,
+                   1,1,1,0,
+                   1,-1,4,3), nrow = 4, ncol = 4, byrow = T)
+VectorB = matrix(c(-8,-20,-2,4), nrow = 4, ncol = 1)
+Eliminacion_Gaussiana(matriz_coeficientes = MatrixA, vector_resultados = VectorB)
+```
