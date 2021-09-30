@@ -1,0 +1,191 @@
+---
+title: "SEnoL Newton"
+author: "Agustin Huczok"
+date: "30/9/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Norma
+
+
+```{r}
+norma <- function(y, metodo){
+  if (metodo==2){
+    return(sqrt(sum(y^2)))
+  }
+  if (metodo==Inf){
+    return(max(abs(y)))
+  }
+  return("El metodo debe ser 2 o Inf")
+}
+
+```
+
+
+#Sistema Ec. No lineal Newton
+
+
+```{r}
+Sist_Ec_NoLineal_Newton <- function(n,x,TOL,N){
+  #Paso 1
+  k <- 1
+  #Paso 2
+  while(k<=N){
+    #Paso 3
+    fx <- Fx(x)
+    J <- Jacobiano(x[1],x[2])
+    #Paso 4
+    y = solve(J)%*%-fx
+    #Paso 5
+    x <- x + t(y)
+    #Paso 6
+    if (norma(y,2) < TOL){
+      return(x)
+    }
+    #Paso 7
+    k <- k+1
+  }
+  #Paso 8
+  return(paste('Numero max de iteraciones excedido'))
+}
+```
+
+
+
+#Calculo derivadas dos variables
+
+```{r}
+fa=function(x1,x2){
+  
+}
+
+fae=expression()
+D(fae,"x1")
+D(fae,"x2")
+
+dfa1=function(x1,x2){}
+dfa2=function(x1,x2){}
+
+
+fb=function(x1,x2){
+  
+}
+fbe=expression()
+D(fbe,"x1")
+D(fbe,"x2")
+
+dfb1=function(x1,x2,x3){}
+dfb2=function(x1,x2,x3){}
+```
+
+#Calculo derivadas tres variables
+
+```{r}
+fa=function(x1,x2,x3){
+  5*x1+2*x2
+}
+fae=expression(5*x1+2*x2)
+D(fae,"x1")
+D(fae,"x2")
+D(fae,"x3")
+
+dfa1=function(x1,x2,x3){}
+dfa2=function(x1,x2,x3){}
+dfa3=function(x1,x2,x3){}
+
+fb=function(x1,x2,x3){
+  
+}
+
+
+fbe=expression()
+D(fbe,"x1")
+D(fbe,"x2")
+D(fbe,"x3")
+
+dfb1=function(x1,x2,x3){}
+dfb2=function(x1,x2,x3){}
+dfb3=function(x1,x2,x3){}
+
+
+
+fc=function(x1,x2,x3){
+  
+}
+
+
+fce=expression()
+D(fce,"x1")
+D(fce,"x2")
+D(fce,"x3")
+
+dfc1=function(x1,x2,x3){}
+dfc2=function(x1,x2,x3){}
+dfc3=function(x1,x2,x3){}
+
+```
+
+
+
+#Matriz jacobiana
+
+```{r}
+
+
+
+Jacobiano <- function(x1,x2){
+  col1 <- 
+    c(dfa1(x1,x2),dfa2(x1,x2))
+  
+  col2 <- 
+    c(dfb1(x1,x2),dfb2(x1,x2))
+  
+  
+  J <- rbind(col1,col2) #armo la matriz ampliada
+  return(J)
+}
+```
+
+#Definino Fx
+
+```{r}
+
+Fx <- function(x){
+  Fx <- rbind(fa(x[1],x[2]), fb(x[1],x[2]))
+  return(Fx)
+} #sera una matriz ampliada con las funciones definadas antes
+
+```
+
+# Evaluo fn y el Jacobiano
+```{r}
+
+
+x <- c(0,0)
+n=2
+#Sist_Ec_NoLineal_Newton(n, x, 10^-6, 100)
+```
+
+# Corroboro
+```{r}
+
+
+
+#Asigno los rdos del algoritmo a las variables x1,x2
+#x1 <- Sist_Ec_NoLineal_Newton(n,x, 10^-5, 100)[1] #posicion, osea mult por posicion 1
+#x2 <- Sist_Ec_NoLineal_Newton(n,x, 10^-5, 100)[2]
+```
+
+# Resultados
+```{r}
+
+
+
+#fa(x1, x2)
+#fb(x1, x2)
+
+```
