@@ -9,7 +9,13 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#Norma
+
+
+
+
+
+#Dos variables
+##Norma
 
 
 ```{r}
@@ -25,10 +31,6 @@ norma <- function(y, metodo){
 
 ```
 
-
-
-
-#Dos variables
 ##Sistema Ec. No lineal Newton
 
 
@@ -150,6 +152,22 @@ n=2
 
 
 #Tres variables
+##Norma
+
+
+```{r}
+norma <- function(y, metodo){
+  if (metodo==2){
+    return(sqrt(sum(y^2)))
+  }
+  if (metodo==Inf){
+    return(max(abs(y)))
+  }
+  return("El metodo debe ser 2 o Inf")
+}
+
+```
+
 ##Sistema Ec. No lineal Newton
 
 
