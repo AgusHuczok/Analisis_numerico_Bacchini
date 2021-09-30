@@ -26,7 +26,10 @@ norma <- function(y, metodo){
 ```
 
 
-#Sistema Ec. No lineal Newton
+
+
+#Dos variables
+##Sistema Ec. No lineal Newton
 
 
 ```{r}
@@ -53,10 +56,6 @@ Sist_Ec_NoLineal_Newton <- function(n,x,TOL,N){
   return(paste('Numero max de iteraciones excedido'))
 }
 ```
-
-
-
-#Dos variables
 ##Calculo derivadas dos variables
 
 ```{r}
@@ -148,7 +147,36 @@ n=2
 
 
 
+
+
 #Tres variables
+##Sistema Ec. No lineal Newton
+
+
+```{r}
+Sist_Ec_NoLineal_Newton <- function(n,x,TOL,N){
+  #Paso 1
+  k <- 1
+  #Paso 2
+  while(k<=N){
+    #Paso 3
+    fx <- Fx(x)
+    J <- Jacobiano(x[1],x[2],x[3])
+    #Paso 4
+    y = solve(J)%*%-fx
+    #Paso 5
+    x <- x + t(y)
+    #Paso 6
+    if (norma(y,2) < TOL){
+      return(x)
+    }
+    #Paso 7
+    k <- k+1
+  }
+  #Paso 8
+  return(paste('Numero max de iteraciones excedido'))
+}
+```
 ##Calculo derivadas tres variables
 
 ```{r}
