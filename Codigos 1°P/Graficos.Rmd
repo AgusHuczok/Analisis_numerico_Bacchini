@@ -1,0 +1,44 @@
+---
+title: "Graficar"
+author: "Agustin Huczok"
+date: "1/10/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+
+graphics.off()
+
+f=function(x){
+  exp(10/x)-2*sin(x)
+}
+
+
+x<-seq(10,30,0.1)#Genero vector para graficar f(x)
+
+fx<-f(x)
+
+df<-data.frame(x,fx) #Creo dataframe
+
+ggfx=ggplot(data=df) #cargo los datos
+
+ggfx=ggfx+aes(x=x,y=fx)#Cargo variables
+
+ggfx=ggfx+geom_line(linetype=1,colour="darkblue") #Agrego linea
+
+ggfx=ggfx+geom_hline(yintercept=0,linetype=1)+geom_vline(xintercept = 0,linetype=1)#Creo x=0 e y=0
+
+ggfx=ggfx+scale_x_continuous(name="x",breaks=seq(0,30,1)) #cambio escala eje X
+
+
+ggfx=ggfx+geom_vline(xintercept=c(19.5,20.2),linetype=2,colour="red")+geom_vline(xintercept=c(20.6,22),linetype=2,colour="blue")+geom_vline(xintercept=c(25.5,26),linetype=2,colour="orange")+geom_vline(xintercept=c(27,28),linetype=2,colour="green")
+ggfx=ggfx+ggtitle("Funcion con 4 raices") #Agrego titulo
+
+ggfx
+```
+
