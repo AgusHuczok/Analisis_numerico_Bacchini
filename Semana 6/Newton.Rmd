@@ -31,11 +31,11 @@ norma <- function(y, metodo){
 
 ```
 
-##Sistema Ec. No lineal Newton
+##Algoritmo
 
 
 ```{r}
-Sist_Ec_NoLineal_Newton <- function(n,x,TOL,N){
+Newton_SEnoL<- function(n,x,TOL,N){
   #Paso 1
   k <- 1
   #Paso 2
@@ -133,8 +133,8 @@ n=2
 
 
 #Asigno los rdos del algoritmo a las variables x1,x2
-#x1 <- Sist_Ec_NoLineal_Newton(n,x, 10^-5, 100)[1] #posicion, osea mult por posicion 1
-#x2 <- Sist_Ec_NoLineal_Newton(n,x, 10^-5, 100)[2]
+#x1 <- NewtonSEnoL(n,x, 10^-5, 100)[1] #posicion, osea mult por posicion 1
+#x2 <- NewtonSEnoL(n,x, 10^-5, 100)[2]
 ```
 
 ##Resultados
@@ -177,7 +177,7 @@ norma <- function(y, metodo){
 
 
 ```{r}
-Sist_Ec_NoLineal_Newton <- function(n,x,TOL,N){
+NewtonSEnoL <- function(n,x,TOL,N){
   #Paso 1
   k <- 1
   #Paso 2
@@ -285,9 +285,9 @@ n=3
 ##Corroboro
 
 ```{r}
-#x1 <- Sist_Ec_NoLineal_Newton(n,x, 10^-6, 100)[1] #posicion, osea mult por posicion 1
-#x2 <- Sist_Ec_NoLineal_Newton(n,x, 10^-6, 100)[2]
-#x3 <- Sist_Ec_NoLineal_Newton(n,x, 10^-6, 100)[3]
+#x1 <- NewtonSEnoL(n,x, 10^-6, 100)[1] #posicion, osea mult por posicion 1
+#x2 <- NewtonSEnoL(n,x, 10^-6, 100)[2]
+#x3 <- NewtonSEnoL(n,x, 10^-6, 100)[3]
 ```
 
 ##Imprimo los resultados
