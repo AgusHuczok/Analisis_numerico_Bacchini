@@ -80,8 +80,8 @@ fbe=expression()
 D(fbe,"x1")
 D(fbe,"x2")
 
-dfb1=function(x1,x2,x3){}
-dfb2=function(x1,x2,x3){}
+dfb1=function(x1,x2){}
+dfb2=function(x1,x2){}
 ```
 
 
