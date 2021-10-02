@@ -326,7 +326,7 @@ BroydenSEnoL <- function(x , TOL, N){
 #Asigno los rdos del algoritmo a las variables x1,x2
 #x1 <- BroydenSEnoL(x, 10^-5, 1000)[1] #posicion, osea mult por posicion 1
 #x2 <- BroydenSEnoL(x, 10^-5, 1000)[2]
-#x3 <- BroydenSEnoL(x, 10^-5, 1000)[2]
+#x3 <- BroydenSEnoL(x, 10^-5, 1000)[3]
 ```
 
 ##Resultados
