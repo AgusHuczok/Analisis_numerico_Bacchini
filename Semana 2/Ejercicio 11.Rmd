@@ -1,0 +1,23 @@
+---
+title: "Ejercicio 11 TIR"
+author: "Agustin Huczok"
+date: "6/10/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(scales)
+```
+
+```{r}
+PM=101.5
+f=function(r){2.5*(((1+0.5*r)^-1)+((1+0.5*r)^-2)+((1+0.5*r)^-3)+((1+0.5*r)^-4)+((1+0.5*r)^-5)+((1+0.5*r)^-6)+((1+0.5*r)^-7)+((1+0.5*r)^-8)+((1+0.5*r)^-9)+((1+0.5*r)^-10))+100*(1+0.5*r)^-10}
+x=seq(10^-6,0.1,0.00001)
+y=f(x)
+df=data.frame(x,y)
+ggplot=ggplot(data=df)+aes(x=x,y=y)+geom_line()+geom_hline(yintercept=101.5,col="red")+scale_x_continuous(name="tasa",label=percent)+scale_y_continuous(name="PM",labels =comma)
+ggplot
+```
+
